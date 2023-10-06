@@ -1,3 +1,4 @@
+import 'package:augs_projcet/homepage.dart';
 import 'package:flutter/material.dart';
  void main(){
    runApp(MaterialApp(home:Login_with_valid() ,
@@ -36,9 +37,20 @@ class Loginvalidatestate  extends State<Login_with_valid>{
                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
 
                            ),
+                         validator: (uname){
+                           if(uname!.isEmpty || !uname.contains('@') || !uname.contains('.')){
+                             return "please enter valid username";
+                           }
+                           else
+                             {
+                               return null;
+                             }
 
+
+                         },
                          ),
                        ),
+
                    Padding(
                      padding: const EdgeInsets.only(top: 20,left: 60,right: 60,bottom: 60),
                      child: TextFormField(
@@ -62,14 +74,31 @@ class Loginvalidatestate  extends State<Login_with_valid>{
                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
 
                        ),
-
+                     validator:(password){
+                         if(password!.isEmpty || password.length<6){
+                           return "please enter valid password";
+                         }
+                         else{
+                           return null;
+                         }
+                     },
                      ),
                    ),
 
-                ElevatedButton(onPressed: (){}, child: Text("Login"),style:
+                ElevatedButton(onPressed: (){
+                  final valid=formakey.currentState!.validate();
+                  if(valid){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Homepage()));
+                  }
+                  else{
+                    return null;
+                  }
+                }, child: Text("Login"),style:
                 ElevatedButton.styleFrom(backgroundColor: Colors.red,),),
                    SizedBox(height: 20,),
-                   TextButton(onPressed: (){}, child: Text("create a new user"))
+                   TextButton(onPressed: (){
+
+                   }, child: Text("create a new user"))
 
 
 
